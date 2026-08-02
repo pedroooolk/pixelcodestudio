@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelCodeStudio — Sites modernos para pequenos negócios</title>
+<meta name="description" content="A PixelCodeStudio desenvolve sites modernos, rápidos e simples para restaurantes, clínicas, barbearias, lojas e pequenos negócios.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%2309090B%22/><circle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%222.4%22/><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%2232%22 y2=%2232%22><stop stop-color=%22%232563EB%22/><stop offset=%221%22 stop-color=%22%237C3AED%22/></linearGradient></defs></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   PixelCodeStudio — Design tokens
+   ========================================================= */
+:root{
+  --black: #09090B;
+  --surface: #111114;
+  --surface-2: #17171B;
+  --border: rgba(255,255,255,0.09);
+  --border-soft: rgba(255,255,255,0.05);
+
+  --blue: #2563EB;
+  --blue-light: #3B82F6;
+  --purple: #7C3AED;
+  --grad: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+
+  --text: #FAFAFA;
+  --text-dim: #A1A1AA;
+  --text-faint: #6B6B74;
+
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+
+  --ease: cubic-bezier(.16,.84,.44,1);
+  --space-section: 140px;
+}
+
+/* =========================================================
+   Reset
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+input,textarea,select{font:inherit;color:inherit;}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02em;line-height:1.15;color:#fff;}
+
+:focus-visible{outline:2px solid var(--blue-light);outline-offset:3px;border-radius:4px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+}
+
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 28px;}
+.section{padding:var(--space-section) 0;}
+
+/* soft aurora background, fixed, subtle */
+.bg-aurora{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(600px 500px at 15% -5%, rgba(37,99,235,0.10), transparent 60%),
+    radial-gradient(600px 500px at 90% 10%, rgba(124,58,237,0.09), transparent 60%);
+}
+
+/* =========================================================
+   Utility: glassmorphism
+   ========================================================= */
+.glass{
+  background:rgba(255,255,255,0.035);
+  border:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--blue-light);margin-bottom:18px;
+}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--grad);}
+
+.section-head{max-width:560px;margin:0 auto 56px;text-align:center;}
+.section-head .eyebrow{justify-content:center;}
+.section-head h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:14px;}
+.section-text{color:var(--text-dim);font-size:16px;}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:11px;
+  font-weight:600;font-size:14.5px;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+  white-space:nowrap;
+}
+.btn-sm{padding:10px 20px;font-size:13.5px;}
+.btn-primary{
+  background:var(--grad);
+  color:#fff;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(124,58,237,0.55);}
+.btn-ghost{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  color:var(--text);
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.22);background:rgba(255,255,255,0.06);transform:translateY(-2px);}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 0;
+  border-bottom:1px solid transparent;
+  transition:background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
+}
+.header.scrolled{
+  background:rgba(9,9,11,0.75);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--border-soft);
+  padding:14px 0;
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:17px;color:#fff;}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-mark svg:first-child{width:17px;height:17px;}
+
+.nav{display:flex;align-items:center;gap:34px;}
+.nav a{font-size:14.5px;font-weight:500;color:var(--text-dim);transition:color .25s;position:relative;}
+.nav a::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--grad);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease);}
+.nav a:hover{color:#fff;}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left;}
+
+.nav-toggle{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:38px;height:38px;border:1px solid var(--border);border-radius:8px;
+  background:rgba(255,255,255,0.03);
+}
+.nav-toggle span{width:16px;height:1.5px;background:var(--text-dim);margin:0 auto;transition:transform .3s var(--ease), opacity .3s var(--ease);}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{padding:190px 0 120px;position:relative;}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-copy{max-width:520px;}
+.hero h1{font-size:clamp(34px,4.6vw,52px);margin-bottom:22px;}
+.hero-lead{font-size:17.5px;color:var(--text-dim);margin-bottom:38px;max-width:460px;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+
+.hero-visual{position:relative;height:420px;}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.55;}
+.blob-a{width:280px;height:280px;background:var(--blue);top:-40px;right:20px;animation:drift-a 12s ease-in-out infinite alternate;}
+.blob-b{width:260px;height:260px;background:var(--purple);bottom:-30px;left:0;animation:drift-b 14s ease-in-out infinite alternate;}
+@keyframes drift-a{to{transform:translate(-20px,24px);}}
+@keyframes drift-b{to{transform:translate(24px,-16px);}}
+
+.mock-window{
+  position:relative;z-index:1;margin:0 auto;max-width:420px;
+  border-radius:var(--radius-lg);overflow:hidden;
+  background:rgba(17,17,20,0.7);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,0.65);
+  animation:float-mock 6s ease-in-out infinite;
+}
+@keyframes float-mock{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.mock-bar{display:flex;gap:6px;padding:14px 16px;border-bottom:1px solid var(--border-soft);}
+.mock-bar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.14);}
+.mock-body{padding:22px;}
+.mock-nav{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+.mock-dot{width:16px;height:16px;border-radius:5px;background:var(--grad);flex-shrink:0;}
+.mock-line{height:7px;border-radius:4px;background:rgba(255,255,255,0.12);}
+.mock-line.big{height:11px;}
+.mock-line.w30{width:30%;}
+.mock-line.w40{width:40%;margin-bottom:10px;}
+.mock-line.w50{width:55%;margin-top:14px;opacity:.6;}
+.mock-line.w60{width:65%;margin-bottom:10px;background:linear-gradient(90deg, rgba(96,165,250,.55), rgba(168,85,247,.4));}
+.mock-pill{margin-left:auto;width:52px;height:18px;border-radius:20px;background:rgba(255,255,255,0.08);}
+.mock-hero{padding-bottom:22px;border-bottom:1px solid var(--border-soft);margin-bottom:22px;}
+.mock-btn{margin-top:16px;width:100px;height:24px;border-radius:7px;background:var(--grad);}
+.mock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.mock-card{aspect-ratio:1;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid var(--border-soft);}
+
+/* =========================================================
+   Sobre
+   ========================================================= */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+.about-grid h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:20px;}
+.about-grid .section-text{margin-bottom:16px;}
+
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.value-card{border-radius:var(--radius-md);padding:26px;transition:transform .4s var(--ease), border-color .4s var(--ease);}
+.value-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.18);}
+.value-icon{width:38px;height:38px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--blue-light);}
+.value-icon svg{width:18px;height:18px;}
+.value-card h3{font-size:15.5px;margin-bottom:7px;}
+.value-card p{font-size:13.5px;color:var(--text-dim);}
+
+/* =========================================================
+   Serviços
+   ========================================================= */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.service-card{
+  padding:32px 26px;border-radius:var(--radius-md);
+  border:1px solid var(--border);background:var(--surface);
+  transition:transform .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease);
+}
+.service-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.16);background:var(--surface-2);}
+.service-icon{width:44px;height:44px;border-radius:11px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--blue-light);}
+.service-icon svg{width:20px;height:20px;}
+.service-card h3{font-size:16.5px;margin-bottom:9px;}
+.service-card p{font-size:14px;color:var(--text-dim);}
+
+/* =========================================================
+   Como funciona
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.step{padding:8px;position:relative;}
+.step-num{
+  font-family:var(--font-display);font-size:14px;font-weight:600;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);
+  margin-bottom:20px;color:var(--blue-light);
+  transition:border-color .3s, box-shadow .3s;
+}
+.step:hover .step-num{border-color:var(--blue-light);box-shadow:0 0 0 6px rgba(37,99,235,0.08);}
+.step h3{font-size:15.5px;margin-bottom:8px;}
+.step p{font-size:13.5px;color:var(--text-dim);}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:720px;margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--border-soft);}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 4px;text-align:left;font-size:15.5px;font-weight:500;color:#fff;
+}
+.faq-icon{width:17px;height:17px;color:var(--text-dim);flex-shrink:0;transition:transform .35s var(--ease), color .3s;}
+.faq-item[data-open="true"] .faq-icon{transform:rotate(45deg);color:var(--blue-light);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);}
+.faq-a p{padding:0 4px 22px;color:var(--text-dim);font-size:14.5px;max-width:600px;}
+
+/* =========================================================
+   Contato
+   ========================================================= */
+.contact-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:start;}
+.contact-grid h2{font-size:clamp(26px,3.6vw,36px);margin:2px 0 14px;}
+
+.contact-form{margin-top:32px;display:flex;flex-direction:column;gap:18px;}
+.form-row{display:flex;flex-direction:column;gap:8px;}
+.form-row label{font-size:13.5px;font-weight:500;color:var(--text-dim);}
+.form-row input,.form-row select,.form-row textarea{
+  padding:13px 15px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text);font-size:14.5px;
+  transition:border-color .3s;
+  resize:vertical;
+}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue-light);outline:none;}
+.form-row input::placeholder,.form-row textarea::placeholder{color:var(--text-faint);}
+.form-submit{align-self:flex-start;margin-top:6px;}
+.form-status{font-size:14px;color:var(--blue-light);min-height:20px;}
+
+.contact-card{border-radius:var(--radius-lg);padding:34px 30px;}
+.contact-card h3{font-size:18px;margin-bottom:8px;}
+.placeholder-note{font-size:13px;color:var(--text-faint);margin-bottom:24px;}
+.contact-list{display:flex;flex-direction:column;gap:20px;}
+.contact-list li{display:flex;align-items:flex-start;gap:14px;}
+.contact-icon{width:36px;height:36px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue-light);}
+.contact-icon svg{width:16px;height:16px;}
+.contact-label{display:block;font-size:12px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.contact-value{font-size:14.5px;color:var(--text);}
+.contact-value.placeholder,span.placeholder{color:var(--text-faint);font-style:italic;}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.footer{padding:80px 0 32px;border-top:1px solid var(--border-soft);position:relative;z-index:1;}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px;}
+.footer-brand p{color:var(--text-dim);font-size:14px;margin-top:14px;max-width:240px;}
+.footer-col h4{font-size:13px;color:#fff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:18px;font-weight:600;}
+.footer-col ul{display:flex;flex-direction:column;gap:12px;}
+.footer-col a{font-size:14px;color:var(--text-dim);transition:color .25s;}
+.footer-col a:hover{color:#fff;}
+.footer-col li span{font-size:14px;}
+.footer-social{display:flex;gap:10px;}
+.footer-social a{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:border-color .3s, background .3s;}
+.footer-social a:hover{border-color:rgba(96,165,250,0.4);background:rgba(37,99,235,0.08);}
+.footer-social svg{width:15px;height:15px;color:var(--text-dim);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-top:28px;border-top:1px solid var(--border-soft);}
+.footer-bottom p{font-size:13px;color:var(--text-faint);}
+.legal{display:flex;gap:22px;}
+.legal a{font-size:13px;color:var(--text-faint);transition:color .25s;}
+.legal a:hover{color:var(--text-dim);}
+
+/* =========================================================
+   Scroll reveal
+   ========================================================= */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width:1020px){
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:36px;}
+  .footer-top{grid-template-columns:1.2fr 1fr 1fr;}
+}
+@media (max-width:900px){
+  .nav{display:none;}
+  .nav-toggle{display:flex;}
+  .header-cta{display:none;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-copy{max-width:100%;}
+  .hero-visual{height:360px;order:-1;margin-bottom:20px;}
+  .about-grid{grid-template-columns:1fr;gap:44px;}
+  .values-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:44px;}
+}
+@media (max-width:640px){
+  :root{--space-section:96px;}
+  .hero{padding:150px 0 80px;}
+  .services-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .values-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .hero-actions .btn{flex:1;}
+}
+
+/* Mobile nav panel (JS-driven) */
+.nav.mobile-open{
+  display:flex;flex-direction:column;
+  position:fixed;top:70px;left:16px;right:16px;
+  background:rgba(9,9,11,0.97);
+  border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;gap:20px;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  z-index:99;
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-aurora" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad)" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="0" height="0"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>
+      </span>
+      PixelCodeStudio
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <a href="#contato" class="btn btn-primary btn-sm header-cta">Solicitar orçamento</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Sites para pequenos negócios</span>
+        <h1>Presença digital moderna para o seu negócio.</h1>
+        <p class="hero-lead">
+          Criamos sites rápidos, simples e bem construídos para restaurantes, clínicas,
+          barbearias, lojas e pequenos negócios que querem ser encontrados online.
+        </p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Solicitar orçamento</a>
+          <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="mock-window">
+          <div class="mock-bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-nav">
+              <div class="mock-dot"></div>
+              <div class="mock-line w30"></div>
+              <div class="mock-pill"></div>
+            </div>
+            <div class="mock-hero">
+              <div class="mock-line w60 big"></div>
+              <div class="mock-line w40 big"></div>
+              <div class="mock-line w50"></div>
+              <div class="mock-btn"></div>
+            </div>
+            <div class="mock-grid">
+              <div class="mock-card"></div>
+              <div class="mock-card"></div>
+              <div class="mock-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section" id="sobre">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal">
+          <span class="eyebrow">Sobre</span>
+          <h2>Tecnologia simples, a serviço do seu negócio.</h2>
+          <p class="section-text">
+            A PixelCodeStudio desenvolve sites modernos para pequenos negócios que
+            precisam de uma presença digital simples, rápida e profissional. Unimos
+            tecnologia atual a um processo direto, para que restaurantes, hamburguerias,
+            pizzarias, clínicas, barbearias e lojas tenham um site à altura do trabalho
+            que já fazem todos os dias.
+          </p>
+          <p class="section-text">
+            Cada projeto é pensado para ser fácil de usar, fácil de manter e fácil de
+            encontrar — sem complicação para você, nem para quem visita o seu site.
+          </p>
+        </div>
+
+        <div class="values-grid reveal">
+          <div class="value-card glass">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+            </div>
+            <h3>Sites rápidos</h3>
+            <p>Carregamento leve e otimizado, pensado para não fazer o visitante esperar.</p>
+          </div>
+          <div class="value-card glass">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+            </div>
+            <h3>Tecnologia moderna</h3>
+            <p>Código atual e boas práticas de desenvolvimento em cada projeto.</p>
+          </div>
+          <div class="value-card glass">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V4s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V4"/></svg>
+            </div>
+            <h3>Processo simples</h3>
+            <p>Etapas claras do início ao fim, sem burocracia ou jargão técnico.</p>
+          </div>
+          <div class="value-card glass">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4A8.5 8.5 0 0 1 8 18.7L3 20l1.3-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+            </div>
+            <h3>Comunicação direta</h3>
+            <p>Contato próximo durante todo o desenvolvimento do seu site.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Serviços</span>
+        <h2>O que a PixelCodeStudio desenvolve</h2>
+        <p class="section-text">Soluções pensadas para diferentes tipos de negócio, do cardápio à loja virtual.</p>
+      </div>
+
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+          </div>
+          <h3>Sites institucionais</h3>
+          <p>Um site completo para apresentar sua empresa, seus serviços e como entrar em contato.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg>
+          </div>
+          <h3>Cardápios digitais</h3>
+          <p>Cardápio online para restaurantes, hamburguerias e pizzarias, fácil de atualizar.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Landing pages</h3>
+          <p>Página única e direta para divulgar uma promoção, evento ou serviço específico.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="8" y2="15.01"/></svg>
+          </div>
+          <h3>Agendamento online</h3>
+          <p>Sistema simples de agendamento para clínicas, barbearias e salões.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          </div>
+          <h3>Lojas virtuais</h3>
+          <p>Loja online para vender seus produtos pela internet de forma organizada.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+          </div>
+          <h3>Manutenção e suporte</h3>
+          <p>Atualizações e ajustes no site sempre que o seu negócio precisar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section" id="como-funciona">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Como funciona</span>
+        <h2>Um processo claro, do início ao ar</h2>
+      </div>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Contato inicial</h3>
+          <p>Conte um pouco sobre o seu negócio e o que você precisa.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Briefing e planejamento</h3>
+          <p>Definimos juntos o escopo, o conteúdo e o prazo do projeto.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Desenvolvimento</h3>
+          <p>Seu site é desenvolvido com foco em performance e simplicidade.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Entrega</h3>
+          <p>Revisão final com você e publicação do site no ar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Perguntas frequentes</h2>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            Qual o prazo de entrega?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>O prazo varia de acordo com o tipo e a complexidade do site. Esse ponto é definido junto com você durante o briefing.</p></div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            Qual o valor do investimento?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>O valor depende do escopo de cada projeto. Entre em contato para receber uma proposta personalizada.</p></div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            Vocês oferecem hospedagem?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>Podemos orientar sobre as opções de hospedagem disponíveis para o seu projeto.</p></div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            Preciso ter um domínio próprio?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>Não é obrigatório. Se você ainda não tiver um domínio, podemos ajudar nesse processo.</p></div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            O site inclui manutenção?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>A manutenção pode ser contratada separadamente, de acordo com a necessidade do seu negócio.</p></div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button class="faq-q" aria-expanded="false">
+            Posso pedir alterações depois da entrega?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><p>Sim. Alterações podem ser solicitadas e orçadas de acordo com o que for necessário.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section" id="contato">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Contato</span>
+          <h2>Vamos conversar sobre o seu site</h2>
+          <p class="section-text">Preencha o formulário ou utilize um dos canais diretos ao lado.</p>
+
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+              <label for="name">Nome</label>
+              <input type="text" id="name" name="name" placeholder="Seu nome" required>
+            </div>
+            <div class="form-row">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-row">
+              <label for="business">Tipo de negócio</label>
+              <select id="business" name="business">
+                <option value="">Selecione uma opção</option>
+                <option>Restaurante</option>
+                <option>Hamburgueria</option>
+                <option>Pizzaria</option>
+                <option>Clínica</option>
+                <option>Barbearia</option>
+                <option>Loja</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="message">Mensagem</label>
+              <textarea id="message" name="message" rows="4" placeholder="Conte um pouco sobre o seu projeto" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Enviar mensagem</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="contact-direct reveal">
+          <div class="contact-card glass">
+            <h3>Canais diretos</h3>
+            
+            <ul class="contact-list">
+              <li>
+                <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6M3 7v10h18V7M3 7l9-4 9 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><span class="contact-label">E-mail</span><a class="contact-value" href="mailto:pedrochaveiro0ofc@gmail.com">pedrochaveiro0ofc@gmail.com</a></div>
+              </li>
+              <li>
+                <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4A8.5 8.5 0 0 1 8 18.7L3 20l1.3-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><span class="contact-label">WhatsApp</span><a class="contact-value" href="https://wa.me/556299451479" target="_blank" rel="noopener">(62) 9945-1479</a></div>
+              </li>
+              <li>
+                <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" stroke-linecap="round"/></svg></span>
+                <div><span class="contact-label">Atendimento</span><span class="contact-value">Remoto, em todo o Brasil</span></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- RODAPÉ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad2)" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="0" height="0"><defs><linearGradient id="logoGrad2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>
+          </span>
+          PixelCodeStudio
+        </a>
+        <p>Sites modernos para pequenos negócios.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:pedrochaveiro0ofc@gmail.com">pedrochaveiro0ofc@gmail.com</a></li>
+          <li><a href="https://wa.me/556299451479" target="_blank" rel="noopener">(62) 9945-1479</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Redes sociais</h4>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="11" x2="8" y2="16"/><circle cx="8" cy="8" r="0.6" fill="currentColor"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+          <a href="https://wa.me/556299451479" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4A8.5 8.5 0 0 1 8 18.7L3 20l1.3-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> PixelCodeStudio. Todos os direitos reservados.</p>
+      <div class="legal">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Header: estado ao rolar ---------- */
+  var header = document.getElementById("header");
+  function onScroll() {
+    if (window.scrollY > 12) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  }
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Menu mobile ---------- */
+  var navToggle = document.getElementById("navToggle");
+  var nav = document.getElementById("nav");
+
+  function closeMobileNav() {
+    nav.classList.remove("mobile-open");
+    navToggle.setAttribute("aria-expanded", "false");
+  }
+
+  navToggle.addEventListener("click", function () {
+    var isOpen = nav.classList.toggle("mobile-open");
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  nav.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", closeMobileNav);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeMobileNav();
+  });
+
+  /* ---------- Revelação suave ao rolar ---------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+    );
+    revealEls.forEach(function (el) {
+      observer.observe(el);
+    });
+  } else {
+    revealEls.forEach(function (el) {
+      el.classList.add("in-view");
+    });
+  }
+
+  /* ---------- FAQ (acordeão) ---------- */
+  var faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach(function (item) {
+    var button = item.querySelector(".faq-q");
+    var answer = item.querySelector(".faq-a");
+
+    button.addEventListener("click", function () {
+      var isOpen = item.getAttribute("data-open") === "true";
+
+      faqItems.forEach(function (other) {
+        other.setAttribute("data-open", "false");
+        other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+        other.querySelector(".faq-a").style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.setAttribute("data-open", "true");
+        button.setAttribute("aria-expanded", "true");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
+
+  /* ---------- Formulário de contato (demonstração, sem backend) ---------- */
+  var form = document.getElementById("contactForm");
+  var status = document.getElementById("formStatus");
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        status.textContent = "Preencha os campos obrigatórios antes de enviar.";
+        status.style.color = "#f87171";
+        return;
+      }
+
+      // Este formulário é apenas uma demonstração visual.
+      // Conecte-o a um serviço de e-mail, backend ou API antes de publicar o site.
+      status.textContent = "Mensagem pronta para envio. Configure o destino do formulário para recebê-la.";
+      status.style.color = "";
+      form.reset();
+    });
+  }
+
+  /* ---------- Ano atual no rodapé ---------- */
+  var yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+})();
+
+</script>
+</body>
+</html>
