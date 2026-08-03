@@ -5,6 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PixelCodeStudio — Sites modernos para pequenos negócios</title>
 <meta name="description" content="A PixelCodeStudio desenvolve sites modernos, rápidos e simples para restaurantes, clínicas, barbearias, lojas e pequenos negócios.">
+<link rel="canonical" href="https://pixelcodestudio.dev/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="PixelCodeStudio">
+<meta property="og:title" content="PixelCodeStudio — Sites modernos para pequenos negócios">
+<meta property="og:description" content="A PixelCodeStudio desenvolve sites modernos, rápidos e simples para restaurantes, clínicas, barbearias, lojas e pequenos negócios.">
+<meta property="og:url" content="https://pixelcodestudio.dev/">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PixelCodeStudio — Sites modernos para pequenos negócios">
+<meta name="twitter:description" content="A PixelCodeStudio desenvolve sites modernos, rápidos e simples para restaurantes, clínicas, barbearias, lojas e pequenos negócios.">
+
+<meta name="theme-color" content="#09090B">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "PixelCodeStudio",
+  "description": "Desenvolvimento de sites modernos, rápidos e simples para restaurantes, clínicas, barbearias, lojas e pequenos negócios.",
+  "url": "https://pixelcodestudio.dev/",
+  "email": "pixelcodestudio.dev@gmail.com",
+  "telephone": "+5562994521479",
+  "areaServed": "BR",
+  "sameAs": ["https://instagram.com/pixelcodestudio.dev"]
+}
+</script>
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%2309090B%22/><circle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%222.4%22/><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%2232%22 y2=%2232%22><stop stop-color=%22%232563EB%22/><stop offset=%221%22 stop-color=%22%237C3AED%22/></linearGradient></defs></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -230,12 +261,69 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
   padding:32px 26px;border-radius:var(--radius-md);
   border:1px solid var(--border);background:var(--surface);
   transition:transform .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease);
+  cursor:pointer;text-align:left;width:100%;display:flex;flex-direction:column;
 }
-.service-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.16);background:var(--surface-2);}
+.service-card:hover,.service-card:focus-visible{transform:translateY(-5px);border-color:rgba(255,255,255,0.16);background:var(--surface-2);}
 .service-icon{width:44px;height:44px;border-radius:11px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--blue-light);}
 .service-icon svg{width:20px;height:20px;}
 .service-card h3{font-size:16.5px;margin-bottom:9px;}
 .service-card p{font-size:14px;color:var(--text-dim);}
+.service-demo-hint{margin-top:16px;font-size:13px;font-weight:600;color:var(--blue-light);display:flex;align-items:center;gap:6px;}
+.service-demo-hint svg{width:14px;height:14px;transition:transform .3s var(--ease);}
+.service-card:hover .service-demo-hint svg{transform:translateX(3px);}
+
+/* =========================================================
+   Modal de demonstração (conteúdo fictício)
+   ========================================================= */
+.demo-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,5,7,0.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.demo-overlay.open{display:flex;}
+.demo-modal{width:100%;max-width:640px;max-height:88vh;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 50px 120px -24px rgba(0,0,0,0.75);overflow:hidden;animation:demo-pop .3s var(--ease);}
+@keyframes demo-pop{from{opacity:0;transform:translateY(14px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.demo-modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid var(--border-soft);flex-shrink:0;}
+.demo-modal-title{font-family:var(--font-display);font-weight:600;font-size:16px;color:#fff;}
+.demo-close{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,border-color .25s;}
+.demo-close:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);}
+.demo-close svg{width:15px;height:15px;}
+.demo-fictitious{display:flex;align-items:center;gap:8px;padding:10px 22px;font-size:12.5px;font-weight:700;letter-spacing:.02em;color:var(--blue-light);background:linear-gradient(135deg, rgba(37,99,235,0.14), rgba(124,58,237,0.14));border-bottom:1px solid var(--border-soft);flex-shrink:0;}
+.demo-fictitious svg{width:14px;height:14px;flex-shrink:0;}
+.demo-body{padding:24px;overflow-y:auto;}
+.demo-body h4{font-family:var(--font-display);font-size:14px;color:#fff;margin-bottom:10px;}
+.demo-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.demo-tab{padding:9px 16px;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim);font-size:13.5px;font-weight:600;transition:all .25s;}
+.demo-tab.active{background:var(--grad);color:#fff;border-color:transparent;}
+.demo-tab:not(.active):hover{border-color:rgba(255,255,255,0.22);color:#fff;}
+.demo-panel{display:none;}
+.demo-panel.active{display:block;animation:demo-fade .3s var(--ease);}
+@keyframes demo-fade{from{opacity:0;}to{opacity:1;}}
+.demo-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 14px;border:1px solid var(--border-soft);border-radius:10px;background:var(--surface-2);margin-bottom:10px;}
+.demo-row-info b{display:block;font-size:14px;color:#fff;margin-bottom:2px;}
+.demo-row-info span{font-size:12.5px;color:var(--text-faint);}
+.demo-price{font-size:13.5px;font-weight:600;color:var(--blue-light);white-space:nowrap;}
+.demo-stepper{display:flex;align-items:center;gap:10px;}
+.demo-stepper button{width:26px;height:26px;border-radius:7px;border:1px solid var(--border);background:var(--surface);font-weight:700;font-size:15px;color:var(--text);}
+.demo-stepper button:hover{border-color:var(--blue-light);color:var(--blue-light);}
+.demo-stepper span{min-width:14px;text-align:center;font-size:13.5px;font-weight:600;}
+.demo-cartbar{position:sticky;bottom:-24px;margin:18px -24px -24px;padding:16px 24px;background:rgba(17,17,20,0.92);border-top:1px solid var(--border);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.demo-cartbar b{color:#fff;font-size:14.5px;}
+.demo-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;}
+.demo-slot{padding:10px 6px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim);font-size:13px;font-weight:600;text-align:center;}
+.demo-slot:hover{border-color:rgba(255,255,255,0.25);}
+.demo-slot.active{background:var(--grad);color:#fff;border-color:transparent;}
+.demo-status{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:.02em;}
+.demo-status.open{background:rgba(37,99,235,0.15);color:var(--blue-light);}
+.demo-status.progress{background:rgba(234,179,8,0.15);color:#EAB308;}
+.demo-status.done{background:rgba(34,197,94,0.15);color:#22C55E;}
+.demo-form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.demo-form-row label{font-size:13px;font-weight:500;color:var(--text-dim);}
+.demo-form-row input,.demo-form-row select,.demo-form-row textarea{padding:11px 13px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:14px;}
+.demo-confirm{padding:18px;border-radius:12px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);text-align:center;}
+.demo-confirm b{color:#fff;display:block;margin-bottom:4px;}
+.demo-confirm span{font-size:13px;color:var(--text-dim);}
+.demo-browser{border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--surface-2);}
+.demo-browser-bar{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--border-soft);}
+.demo-browser-bar span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);}
+.demo-browser-body{padding:20px;}
+.demo-cta-btn{margin-top:14px;}
 
 /* =========================================================
    Como funciona
@@ -291,7 +379,6 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
 
 .contact-card{border-radius:var(--radius-lg);padding:34px 30px;}
 .contact-card h3{font-size:18px;margin-bottom:8px;}
-.placeholder-note{font-size:13px;color:var(--text-faint);margin-bottom:24px;}
 .contact-list{display:flex;flex-direction:column;gap:20px;}
 .contact-list li{display:flex;align-items:flex-start;gap:14px;}
 .contact-icon{width:36px;height:36px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue-light);}
@@ -513,48 +600,54 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
       </div>
 
       <div class="services-grid reveal">
-        <div class="service-card">
+        <button class="service-card" type="button" data-demo="institucional">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
           </div>
           <h3>Sites institucionais</h3>
           <p>Um site completo para apresentar sua empresa, seus serviços e como entrar em contato.</p>
-        </div>
-        <div class="service-card">
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="service-card" type="button" data-demo="cardapio">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg>
           </div>
           <h3>Cardápios digitais</h3>
           <p>Cardápio online para restaurantes, hamburguerias e pizzarias, fácil de atualizar.</p>
-        </div>
-        <div class="service-card">
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="service-card" type="button" data-demo="landing">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg>
           </div>
           <h3>Landing pages</h3>
           <p>Página única e direta para divulgar uma promoção, evento ou serviço específico.</p>
-        </div>
-        <div class="service-card">
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="service-card" type="button" data-demo="agendamento">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="8" y2="15.01"/></svg>
           </div>
           <h3>Agendamento online</h3>
           <p>Sistema simples de agendamento para clínicas, barbearias e salões.</p>
-        </div>
-        <div class="service-card">
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="service-card" type="button" data-demo="loja">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
           </div>
           <h3>Lojas virtuais</h3>
           <p>Loja online para vender seus produtos pela internet de forma organizada.</p>
-        </div>
-        <div class="service-card">
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="service-card" type="button" data-demo="manutencao">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
           </div>
           <h3>Manutenção e suporte</h3>
           <p>Atualizações e ajustes no site sempre que o seu negócio precisar.</p>
-        </div>
+          <span class="service-demo-hint">Ver demonstração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
       </div>
     </div>
   </section>
@@ -656,7 +749,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
           <h2>Vamos conversar sobre o seu site</h2>
           <p class="section-text">Preencha o formulário ou utilize um dos canais diretos ao lado.</p>
 
-          <form class="contact-form" action="https://formspree.io/f/mpqvvqoe" method="POST">
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/mpqvvqoe" method="POST">
             <div class="form-row">
               <label for="name">Nome</label>
               <input type="text" id="name" name="name" placeholder="Seu nome" required>
@@ -750,7 +843,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
         <h4>Redes sociais</h4>
         <div class="footer-social">
           <a href="https://instagram.com/pixelcodestudio.dev" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="11" x2="8" y2="16"/><circle cx="8" cy="8" r="0.6" fill="currentColor"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+          <a href="javascript:void(0)" aria-label="LinkedIn (em breve)" title="Em breve" aria-disabled="true" style="cursor:default;opacity:.5;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="11" x2="8" y2="16"/><circle cx="8" cy="8" r="0.6" fill="currentColor"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
           <a href="https://wa.me/5562994521479" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4A8.5 8.5 0 0 1 8 18.7L3 20l1.3-4.9a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg></a>
         </div>
       </div>
@@ -759,12 +852,29 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
     <div class="footer-bottom">
       <p>&copy; <span id="year"></span> PixelCodeStudio. Todos os direitos reservados.</p>
       <div class="legal">
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
+        <a href="javascript:void(0)" title="Em breve" style="cursor:default;">Política de Privacidade</a>
+        <a href="javascript:void(0)" title="Em breve" style="cursor:default;">Termos de Uso</a>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- MODAL DE DEMONSTRAÇÃO (conteúdo fictício) -->
+<div class="demo-overlay" id="demoOverlay" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+  <div class="demo-modal">
+    <div class="demo-modal-head">
+      <span class="demo-modal-title" id="demoTitle">Demonstração</span>
+      <button class="demo-close" id="demoClose" type="button" aria-label="Fechar demonstração">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="demo-fictitious">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Exemplo fictício, apenas para demonstração — nenhum dado real é enviado ou salvo.
+    </div>
+    <div class="demo-body" id="demoBody"></div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -850,8 +960,353 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-0.02
     });
   });
 
-  /* ---------- Formulário de contato (demonstração, sem backend) ---------- */
+  /* ---------- Formulário de contato (envio via Formspree, sem sair da página) ---------- */
+  var contactForm = document.getElementById("contactForm");
+  var formStatus = document.getElementById("formStatus");
 
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var submitBtn = contactForm.querySelector(".form-submit");
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando...";
+      formStatus.textContent = "";
+      formStatus.style.color = "var(--blue-light)";
+
+      fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: { Accept: "application/json" }
+      })
+        .then(function (response) {
+          if (response.ok) {
+            formStatus.textContent = "Mensagem enviada com sucesso! Em breve entraremos em contato.";
+            contactForm.reset();
+          } else {
+            return response.json().then(function (data) {
+              var msg = data && data.errors
+                ? data.errors.map(function (err) { return err.message; }).join(", ")
+                : "Não foi possível enviar sua mensagem. Tente novamente.";
+              formStatus.textContent = msg;
+              formStatus.style.color = "#F87171";
+            });
+          }
+        })
+        .catch(function () {
+          formStatus.textContent = "Erro de conexão. Verifique sua internet e tente novamente.";
+          formStatus.style.color = "#F87171";
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        });
+    });
+  }
+
+  /* ---------- Demonstrações de serviços (conteúdo 100% fictício) ---------- */
+  var demoOverlay = document.getElementById("demoOverlay");
+  var demoBody = document.getElementById("demoBody");
+  var demoTitle = document.getElementById("demoTitle");
+  var demoClose = document.getElementById("demoClose");
+  var lastFocused = null;
+
+  function openDemo(key) {
+    var demo = demos[key];
+    if (!demo) return;
+    demoTitle.textContent = demo.title;
+    demoBody.innerHTML = demo.html;
+    lastFocused = document.activeElement;
+    demoOverlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    demo.init(demoBody);
+    demoClose.focus();
+  }
+
+  function closeDemo() {
+    demoOverlay.classList.remove("open");
+    document.body.style.overflow = "";
+    demoBody.innerHTML = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll(".service-card[data-demo]").forEach(function (card) {
+    card.addEventListener("click", function () {
+      openDemo(card.getAttribute("data-demo"));
+    });
+  });
+
+  demoClose.addEventListener("click", closeDemo);
+  demoOverlay.addEventListener("click", function (e) {
+    if (e.target === demoOverlay) closeDemo();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && demoOverlay.classList.contains("open")) closeDemo();
+  });
+
+  function fmtBRL(n) {
+    return "R$ " + n.toFixed(2).replace(".", ",");
+  }
+
+  var demos = {
+
+    /* ---- Sites institucionais ---- */
+    institucional: {
+      title: "Sites institucionais — exemplo",
+      html:
+        '<div class="demo-tabs" role="tablist">' +
+          '<button class="demo-tab active" data-tab="inicio">Início</button>' +
+          '<button class="demo-tab" data-tab="sobre">Sobre</button>' +
+          '<button class="demo-tab" data-tab="servicos">Serviços</button>' +
+          '<button class="demo-tab" data-tab="contato">Contato</button>' +
+        '</div>' +
+        '<div class="demo-browser">' +
+          '<div class="demo-browser-bar"><span></span><span></span><span></span></div>' +
+          '<div class="demo-browser-body">' +
+            '<div class="demo-panel active" data-panel="inicio">' +
+              '<h4>Bella Massas — Restaurante Italiano</h4>' +
+              '<p style="color:var(--text-dim);font-size:14px;margin-bottom:14px;">Massas artesanais feitas todos os dias, em ambiente aconchegante no coração da cidade.</p>' +
+              '<button class="btn btn-primary btn-sm demo-cta-btn" type="button">Ver cardápio</button>' +
+            '</div>' +
+            '<div class="demo-panel" data-panel="sobre">' +
+              '<h4>Sobre nós</h4>' +
+              '<p style="color:var(--text-dim);font-size:14px;">Fundado em 2015, o Bella Massas nasceu da paixão por receitas italianas tradicionais, passadas de geração em geração.</p>' +
+            '</div>' +
+            '<div class="demo-panel" data-panel="servicos">' +
+              '<h4>O que oferecemos</h4>' +
+              '<div class="demo-row"><div class="demo-row-info"><b>Salão para eventos</b><span>Até 40 pessoas</span></div></div>' +
+              '<div class="demo-row"><div class="demo-row-info"><b>Delivery</b><span>Entrega em toda a região</span></div></div>' +
+            '</div>' +
+            '<div class="demo-panel" data-panel="contato">' +
+              '<h4>Fale conosco</h4>' +
+              '<p style="color:var(--text-dim);font-size:14px;">(62) 0000-0000 · contato@bellamassas.exemplo</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>',
+      init: function (root) {
+        var tabs = root.querySelectorAll(".demo-tab");
+        var panels = root.querySelectorAll(".demo-panel");
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            tabs.forEach(function (t) { t.classList.remove("active"); });
+            panels.forEach(function (p) { p.classList.remove("active"); });
+            tab.classList.add("active");
+            root.querySelector('.demo-panel[data-panel="' + tab.getAttribute("data-tab") + '"]').classList.add("active");
+          });
+        });
+      }
+    },
+
+    /* ---- Cardápio digital ---- */
+    cardapio: {
+      title: "Cardápio digital — exemplo",
+      html:
+        '<div class="demo-tabs" role="tablist">' +
+          '<button class="demo-tab active" data-tab="lanches">Lanches</button>' +
+          '<button class="demo-tab" data-tab="bebidas">Bebidas</button>' +
+          '<button class="demo-tab" data-tab="sobremesas">Sobremesas</button>' +
+        '</div>' +
+        '<div class="demo-panel active" data-panel="lanches">' +
+          menuItem("m1", "X-Salada", "Pão, carne, queijo, alface e tomate", 22.9) +
+          menuItem("m2", "X-Bacon", "Pão, carne, bacon e queijo", 25.9) +
+        '</div>' +
+        '<div class="demo-panel" data-panel="bebidas">' +
+          menuItem("m3", "Refrigerante lata", "350ml", 6.5) +
+          menuItem("m4", "Suco natural", "500ml", 9.9) +
+        '</div>' +
+        '<div class="demo-panel" data-panel="sobremesas">' +
+          menuItem("m5", "Petit gâteau", "Com sorvete de creme", 16.9) +
+        '</div>' +
+        '<div class="demo-cartbar"><b id="cartLabel">Carrinho vazio</b><span class="demo-price" id="cartTotal"></span></div>',
+      init: function (root) {
+        initTabs(root);
+        initCart(root);
+      }
+    },
+
+    /* ---- Landing page ---- */
+    landing: {
+      title: "Landing page — exemplo",
+      html:
+        '<div class="demo-browser">' +
+          '<div class="demo-browser-bar"><span></span><span></span><span></span></div>' +
+          '<div class="demo-browser-body" style="text-align:center;">' +
+            '<span class="eyebrow" style="justify-content:center;">Oferta por tempo limitado</span>' +
+            '<h4 style="font-size:20px;margin-bottom:8px;">Semana da Pizza — 20% OFF</h4>' +
+            '<p style="color:var(--text-dim);font-size:14px;margin-bottom:16px;">Válido até domingo, em todas as pizzas grandes.</p>' +
+            '<button class="btn btn-primary demo-cta-btn" id="landingCta" type="button">Quero aproveitar</button>' +
+            '<div id="landingResult" style="margin-top:16px;"></div>' +
+          '</div>' +
+        '</div>',
+      init: function (root) {
+        var btn = root.querySelector("#landingCta");
+        var result = root.querySelector("#landingResult");
+        btn.addEventListener("click", function () {
+          btn.disabled = true;
+          btn.textContent = "Inscrito ✓";
+          result.innerHTML = '<div class="demo-confirm"><b>Cupom fictício: PIZZA20</b><span>Isso é só um exemplo de fluxo de conversão da landing page.</span></div>';
+        });
+      }
+    },
+
+    /* ---- Agendamento online ---- */
+    agendamento: {
+      title: "Agendamento online — exemplo",
+      html:
+        '<div id="stepService">' +
+          '<h4>1. Escolha o serviço</h4>' +
+          '<div class="demo-tabs">' +
+            '<button class="demo-tab" data-service="Corte de cabelo">Corte de cabelo</button>' +
+            '<button class="demo-tab" data-service="Barba">Barba</button>' +
+            '<button class="demo-tab" data-service="Corte + Barba">Corte + Barba</button>' +
+          '</div>' +
+          '<h4>2. Escolha o horário</h4>' +
+          '<div class="demo-slots">' +
+            '<button class="demo-slot">09:00</button><button class="demo-slot">10:30</button>' +
+            '<button class="demo-slot">13:00</button><button class="demo-slot">14:30</button>' +
+            '<button class="demo-slot">16:00</button><button class="demo-slot">17:30</button>' +
+          '</div>' +
+          '<button class="btn btn-primary demo-cta-btn" id="confirmBooking" type="button" disabled>Confirmar agendamento</button>' +
+        '</div>' +
+        '<div id="bookingResult"></div>',
+      init: function (root) {
+        var selectedService = null, selectedSlot = null;
+        var serviceBtns = root.querySelectorAll("[data-service]");
+        var slotBtns = root.querySelectorAll(".demo-slot");
+        var confirmBtn = root.querySelector("#confirmBooking");
+
+        serviceBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            serviceBtns.forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            selectedService = btn.getAttribute("data-service");
+            checkReady();
+          });
+        });
+        slotBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            slotBtns.forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            selectedSlot = btn.textContent;
+            checkReady();
+          });
+        });
+        function checkReady() {
+          confirmBtn.disabled = !(selectedService && selectedSlot);
+        }
+        confirmBtn.addEventListener("click", function () {
+          root.querySelector("#stepService").style.display = "none";
+          root.querySelector("#bookingResult").innerHTML =
+            '<div class="demo-confirm"><b>Agendamento confirmado (exemplo)</b><span>' +
+            selectedService + ' às ' + selectedSlot + ' — nenhum agendamento real foi feito.</span></div>' +
+            '<button class="btn btn-ghost btn-sm demo-cta-btn" id="resetBooking" type="button">Fazer outro exemplo</button>';
+          root.querySelector("#resetBooking").addEventListener("click", function () {
+            openDemo("agendamento");
+          });
+        });
+      }
+    },
+
+    /* ---- Loja virtual ---- */
+    loja: {
+      title: "Loja virtual — exemplo",
+      html:
+        menuItem("p1", "Camiseta básica", "100% algodão", 49.9) +
+        menuItem("p2", "Boné estampado", "Ajustável", 39.9) +
+        menuItem("p3", "Caneca personalizada", "300ml", 29.9) +
+        '<div class="demo-cartbar"><b id="cartLabel">Carrinho vazio</b><span class="demo-price" id="cartTotal"></span></div>',
+      init: function (root) {
+        initCart(root);
+      }
+    },
+
+    /* ---- Manutenção e suporte ---- */
+    manutencao: {
+      title: "Manutenção e suporte — exemplo",
+      html:
+        '<div id="ticketList">' +
+          '<div class="demo-row"><div class="demo-row-info"><b>#1041 — Trocar fotos da página inicial</b><span>Aberto há 2 dias</span></div><span class="demo-status open">Aberto</span></div>' +
+          '<div class="demo-row"><div class="demo-row-info"><b>#1038 — Atualizar horário de funcionamento</b><span>Em atendimento</span></div><span class="demo-status progress">Em andamento</span></div>' +
+          '<div class="demo-row"><div class="demo-row-info"><b>#1032 — Adicionar novo produto ao cardápio</b><span>Finalizado</span></div><span class="demo-status done">Concluído</span></div>' +
+        '</div>' +
+        '<button class="btn btn-primary btn-sm demo-cta-btn" id="newTicketBtn" type="button">Abrir novo chamado</button>' +
+        '<div id="ticketFormWrap"></div>',
+      init: function (root) {
+        var btn = root.querySelector("#newTicketBtn");
+        var wrap = root.querySelector("#ticketFormWrap");
+        btn.addEventListener("click", function () {
+          btn.style.display = "none";
+          wrap.innerHTML =
+            '<div class="demo-form-row"><label>Assunto</label><input type="text" placeholder="Ex: Alterar texto da página" id="ticketSubject"></div>' +
+            '<div class="demo-form-row"><label>Prioridade</label><select id="ticketPriority"><option>Baixa</option><option>Média</option><option>Alta</option></select></div>' +
+            '<div class="demo-form-row"><label>Descrição</label><textarea rows="3" placeholder="Descreva o que precisa ser ajustado"></textarea></div>' +
+            '<button class="btn btn-primary btn-sm demo-cta-btn" id="submitTicket" type="button">Enviar chamado</button>' +
+            '<div id="ticketConfirm"></div>';
+          wrap.querySelector("#submitTicket").addEventListener("click", function () {
+            wrap.querySelector("#ticketConfirm").innerHTML =
+              '<div class="demo-confirm" style="margin-top:14px;"><b>Chamado #1042 registrado (exemplo)</b><span>Isso é só uma demonstração — nenhum chamado real foi criado.</span></div>';
+          });
+        });
+      }
+    }
+  };
+
+  function menuItem(id, name, desc, price) {
+    return '<div class="demo-row" data-item="' + id + '" data-price="' + price + '" data-name="' + name + '">' +
+      '<div class="demo-row-info"><b>' + name + '</b><span>' + desc + '</span></div>' +
+      '<div style="display:flex;align-items:center;gap:14px;">' +
+        '<span class="demo-price">' + fmtBRL(price) + '</span>' +
+        '<div class="demo-stepper"><button type="button" data-action="dec">−</button><span data-qty="0">0</span><button type="button" data-action="inc">+</button></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function initTabs(root) {
+    var tabs = root.querySelectorAll(".demo-tab");
+    var panels = root.querySelectorAll(".demo-panel");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabs.forEach(function (t) { t.classList.remove("active"); });
+        panels.forEach(function (p) { p.classList.remove("active"); });
+        tab.classList.add("active");
+        root.querySelector('.demo-panel[data-panel="' + tab.getAttribute("data-tab") + '"]').classList.add("active");
+      });
+    });
+  }
+
+  function initCart(root) {
+    function updateCart() {
+      var count = 0, total = 0;
+      root.querySelectorAll("[data-item]").forEach(function (row) {
+        var qty = parseInt(row.querySelector("[data-qty]").textContent, 10);
+        count += qty;
+        total += qty * parseFloat(row.getAttribute("data-price"));
+      });
+      var label = root.querySelector("#cartLabel");
+      var totalEl = root.querySelector("#cartTotal");
+      if (count === 0) {
+        label.textContent = "Carrinho vazio";
+        totalEl.textContent = "";
+      } else {
+        label.textContent = count + (count === 1 ? " item no carrinho" : " itens no carrinho") + " (exemplo)";
+        totalEl.textContent = fmtBRL(total);
+      }
+    }
+    root.querySelectorAll("[data-item]").forEach(function (row) {
+      var qtyEl = row.querySelector("[data-qty]");
+      row.querySelectorAll("[data-action]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var qty = parseInt(qtyEl.textContent, 10);
+          if (btn.getAttribute("data-action") === "inc") qty++;
+          else qty = Math.max(0, qty - 1);
+          qtyEl.textContent = qty;
+          updateCart();
+        });
+      });
+    });
+    updateCart();
+  }
 
   /* ---------- Ano atual no rodapé ---------- */
   var yearEl = document.getElementById("year");
